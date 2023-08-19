@@ -1,6 +1,3 @@
-@use './conversions.scss' as *;
-@use './mixins.scss' as *;
-
 $color-a: #002b36;
 $color-b: #073642;
 $color-c: #586e75;
@@ -64,51 +61,3 @@ $color-p-low-op: #85990066;
 $color-q-low-op: #ffffff66;
 $color-r-low-op: #cecece66;
 $color-s-low-op: #1d1e2166;
-
-
-// shadows
-
-$shadow-main: 0 -0.0625rem 0.625rem rgba(0, 0, 0, 0.1);
-$shadow-sub: 0 -0.0625rem 0.1625rem rgba(0, 0, 0, 0.1);
-
-$shadow-card: $px3 $px5 $px5 0 rgba(112, 0, 255, 0.25);
-
-// main
-
-$main-bg: #f2f2f2;
-
-// graph 
-
-$graph-a: #93a1a1;
-$graph-label: #586e7565;
-$graph-line: #eee8d5;
-
-// projects component 
-
-$projects-header: #4c4e60;
-
-$projects-card-bg: #f4f4f4;
-$projects-title-bg: #d3d3d31f;
-
-$projects-left-title-bg: #CAEAE6;
-
-$tech-writing: #4c4e60;
-
-// technologies
-
-$technology-bright: #eee8d5;
-$technology-dark: #073642;
-
-$apollo-label: #311C8729;
-$aws-label: #EC721229;
-$express-js-label: #01010129;
-$graphql-label: #F6009B29;
-$javascript-label: #FCDC0029;
-$knex-js-label: #FF814429;
-$material-ui-label: #0683FF29;
-$mysql-label: #01758F29;
-$next-js-label: #00000029;
-$node-js-label: #44853D29;
-$react-label: #0C7EA429;
-$sass-label: #BF408029;
-$typescript-label: #268bd229;
