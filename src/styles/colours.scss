@@ -1,0 +1,114 @@
+@use './conversions.scss' as *;
+@use './mixins.scss' as *;
+
+$color-a: #002b36;
+$color-b: #073642;
+$color-c: #586e75;
+$color-d: #657b83;
+$color-e: #839496;
+$color-f: #93a1a1;
+$color-g: #eee8d5;
+$color-h: #fdf6e3;
+$color-i: #b58900;
+$color-j: #cb4b16;
+$color-k: #dc322f;
+$color-l: #d33682;
+$color-m: #6c71c4;
+$color-n: #268bd2;
+$color-o: #2aa198;
+$color-p: #859900;
+$color-q: #ffffff;
+$color-r: #cecece;
+$color-s: #1d1e21;
+
+// mid opacity
+
+$color-a-mid-op: #002b3699;
+$color-b-mid-op: #07364299;
+$color-c-mid-op: #586e7599;
+$color-d-mid-op: #657b8399;
+$color-e-mid-op: #83949699;
+$color-f-mid-op: #93a1a199;
+$color-g-mid-op: #eee8d599;
+$color-h-mid-op: #fdf6e399;
+$color-i-mid-op: #b5890099;
+$color-j-mid-op: #cb4b1699;
+$color-k-mid-op: #dc322f99;
+$color-l-mid-op: #d3368299;
+$color-m-mid-op: #6c71c499;
+$color-n-mid-op: #268bd299;
+$color-o-mid-op: #2aa19899;
+$color-p-mid-op: #85990099;
+$color-q-mid-op: #ffffff99;
+$color-r-mid-op: #cecece99;
+$color-s-mid-op: #1d1e2199;
+
+// low opacity
+
+$color-a-low-op: #002b3666;
+$color-b-low-op: #07364266;
+$color-c-low-op: #586e7566;
+$color-d-low-op: #657b8366;
+$color-e-low-op: #83949666;
+$color-f-low-op: #93a1a166;
+$color-g-low-op: #eee8d566;
+$color-h-low-op: #fdf6e366;
+$color-i-low-op: #b5890066;
+$color-j-low-op: #cb4b1666;
+$color-k-low-op: #dc322f66;
+$color-l-low-op: #d3368266;
+$color-m-low-op: #6c71c466;
+$color-n-low-op: #268bd266;
+$color-o-low-op: #2aa19866;
+$color-p-low-op: #85990066;
+$color-q-low-op: #ffffff66;
+$color-r-low-op: #cecece66;
+$color-s-low-op: #1d1e2166;
+
+
+// shadows
+
+$shadow-main: 0 -0.0625rem 0.625rem rgba(0, 0, 0, 0.1);
+$shadow-sub: 0 -0.0625rem 0.1625rem rgba(0, 0, 0, 0.1);
+
+$shadow-card: $px3 $px5 $px5 0 rgba(112, 0, 255, 0.25);
+
+// main
+
+$main-bg: #f2f2f2;
+
+// graph 
+
+$graph-a: #93a1a1;
+$graph-label: #586e7565;
+$graph-line: #eee8d5;
+
+// projects component 
+
+$projects-header: #4c4e60;
+
+$projects-card-bg: #f4f4f4;
+$projects-title-bg: #d3d3d31f;
+
+$projects-left-title-bg: #CAEAE6;
+
+$tech-writing: #4c4e60;
+
+// technologies
+
+$technology-bright: #eee8d5;
+$technology-dark: #073642;
+
+$apollo-label: #311C8729;
+$aws-label: #EC721229;
+$express-js-label: #01010129;
+$graphql-label: #F6009B29;
+$javascript-label: #FCDC0029;
+$knex-js-label: #FF814429;
+$material-ui-label: #0683FF29;
+$mysql-label: #01758F29;
+$next-js-label: #00000029;
+$node-js-label: #44853D29;
+$react-label: #0C7EA429;
+$sass-label: #BF408029;
+$typescript-label: #268bd229;
