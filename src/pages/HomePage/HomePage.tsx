@@ -4,6 +4,7 @@ import './HomePage.scss';
 const HomePage = () => {
 
 
+    const [display, setDisplay]: any = useState(0);
     const [currentNum, setCurrentNum] = useState(0);
     const [prevNum, setPrevNum] = useState(0);
     const [isMulPressed, setIsMulPressed] = useState<boolean>(false);
@@ -18,15 +19,22 @@ const HomePage = () => {
             setCurrentNum(v);
         }
 
+        if (isMulPressed === true) {
+            setPrevNum(currentNum);
+            setCurrentNum(v);
+        }
+
         if (isAddPressed === true) {
             setPrevNum(prevNum => prevNum + currentNum);
             setCurrentNum(v);
         }
 
-        if (isMulPressed === true) {
+        if (isSubPressed === true) {
             setPrevNum(currentNum);
             setCurrentNum(v);
         }
+
+        setDisplay(v);
 
     }
 
@@ -34,39 +42,55 @@ const HomePage = () => {
 
         setIsMulPressed(true);
 
+        if (isAddPressed === true) {
+            setIsAddPressed(false);
+        }
+
+        if (isSubPressed === true) {
+            setIsSubPressed(false);
+        }
+
         if (total > 0) {
             setPrevNum(total);
         }
+
+        setDisplay('*');
     }
 
     const handleAddPress: any = () => {
+
+
+
+        if (isMulPressed === true) {
+            setIsMulPressed(false);
+        }
 
         if (isSubPressed === true) {
             setIsSubPressed(false);
         }
 
         setIsAddPressed(true);
+
+        setDisplay('+');
     }
 
     const handleSubPress: any = () => {
 
+        if (isMulPressed === true) {
+            setIsMulPressed(false);
+        }
+        if (isAddPressed === true) {
+            setIsAddPressed(false);
+        }
+
         setIsSubPressed(true);
+
+        setDisplay('-');
 
     }
 
 
     const handleEqualsPress: any = () => {
-
-        if (isAddPressed === true) {
-            setTotal(prevNum + currentNum);
-            console.log(total);
-        }
-
-        if (isAddPressed === true && total > 0) {
-            setTotal(total + currentNum);
-            console.log('new total');
-            setPrevNum(total);
-        }
 
         if (isMulPressed === true) {
             setTotal(prevNum * currentNum);
@@ -80,6 +104,27 @@ const HomePage = () => {
             setPrevNum(total);
         }
 
+        if (isAddPressed === true) {
+            setTotal(prevNum + currentNum);
+            console.log(total);
+        }
+
+        if (isAddPressed === true && total > 0) {
+            setTotal(total + currentNum);
+            console.log('new total');
+            setPrevNum(total);
+        }
+
+        if (isSubPressed === true) {
+            setTotal(prevNum - currentNum);
+            console.log('odd total', total);
+        }
+
+        if (isSubPressed === true && total > 0) {
+            setTotal(total - currentNum);
+            console.log('new total');
+            setPrevNum(total);
+        }
 
         setIsAddPressed(false);
         setIsSubPressed(false);
@@ -93,13 +138,14 @@ const HomePage = () => {
         console.log('state total', total);
     }, [currentNum, prevNum, total]);
 
-    let totalDisplay: number = total;
-
+    useEffect(() => {
+        setDisplay(total);
+    }, [total])
 
     return (
         <div className="calculator">
 
-            <div className="calculator__display">{totalDisplay}</div>
+            <div className="calculator__display">{display}</div>
 
             <div className="calculator__buttons">
 
