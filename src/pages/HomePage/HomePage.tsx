@@ -28,8 +28,6 @@ const HomePage = () => {
 
     const handleNumberPress: any = (v: number) => {
 
-
-
         if (isNumPressed === true) {
             const concatenatedValue = String(currentNum) + String(v);
             const numberedValue = parseFloat(concatenatedValue);
@@ -41,6 +39,12 @@ const HomePage = () => {
         if (isMulPressed === false && isAddPressed === false && isSubPressed === false && currentNum === 0) {
             setCurrentNum(v);
             setIsNumPressed(true);
+        }
+
+        if (isDivPressed === true) {
+            setIsNumPressed(true);
+            setPrevNum(currentNum);
+            setCurrentNum(v);
         }
 
         if (isMulPressed === true) {
@@ -154,49 +158,31 @@ const HomePage = () => {
         setIsNumPressed(false);
 
         if (isDivPressed === true) {
-            setTotal(prevNum / currentNum);
-            console.log(total);
-            setPrevNum(total);
-        }
-
-        if (isDivPressed === true && total != 0) {
-            setTotal(total / currentNum);
-            console.log('new total');
-            setPrevNum(total);
+            const newTotal = total !== 0 ? total / currentNum : prevNum / currentNum;
+            setTotal(newTotal);
+            console.log('new total:', newTotal);
+            setPrevNum(parseFloat(newTotal.toFixed(8)));
         }
 
         if (isMulPressed === true) {
-            setTotal(prevNum * currentNum);
-            console.log(total);
-            setPrevNum(total);
-        }
-
-        if (isMulPressed === true && total != 0) {
-            setTotal(total * currentNum);
-            console.log('new total');
-            setPrevNum(total);
+            const newTotal = total !== 0 ? total * currentNum : prevNum * currentNum;
+            setTotal(newTotal);
+            console.log('new total:', newTotal);
+            setPrevNum(newTotal);
         }
 
         if (isAddPressed === true) {
-            setTotal(prevNum + currentNum);
-            console.log(total);
-        }
-
-        if (isAddPressed === true && total != 0) {
-            setTotal(total + currentNum);
-            console.log('new total');
-            setPrevNum(total);
+            const newTotal = total !== 0 ? total + currentNum : prevNum + currentNum;
+            setTotal(newTotal);
+            console.log(newTotal);
+            setPrevNum(newTotal);
         }
 
         if (isSubPressed === true) {
-            setTotal(prevNum - currentNum);
-            console.log('odd total', total);
-        }
-
-        if (isSubPressed === true && total != 0) {
-            setTotal(total - currentNum);
-            console.log('new total');
-            setPrevNum(total);
+            const newTotal = total !== 0 ? total - currentNum : prevNum - currentNum;
+            setTotal(newTotal);
+            console.log(newTotal);
+            setPrevNum(newTotal);
         }
 
         setIsAddPressed(false);
