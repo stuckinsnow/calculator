@@ -35,14 +35,6 @@ const HomePage = () => {
         setDisplay(myMem);
     }
 
-    const handleDotPress = () => {
-        if (!isDotPressed) {
-            setIsDotPressed(true);
-            setReadyToConcat(true);
-            setCurrentNum(currentNum + '.');
-        }
-    };
-
     const handleOperatorPress = (operator: string) => {
         setIsNumPressed(false);
         setReadyToConcat(false);
@@ -57,6 +49,7 @@ const HomePage = () => {
         setIsMulPressed(false);
         setIsAddPressed(false);
         setIsSubPressed(false);
+        setIsDotPressed(false);
 
         switch (operator) {
             case '/':
@@ -77,6 +70,15 @@ const HomePage = () => {
             case '-':
                 setIsSubPressed(true);
                 setDisplay('-');
+                break;
+            case '.':
+                setIsDotPressed(true);
+
+                if (isDotPressed === false) {
+                    setIsDotPressed(true);
+                    setReadyToConcat(true);
+                    setCurrentNum(currentNum + '.');
+                }
                 break;
             default:
                 break;
@@ -125,6 +127,9 @@ const HomePage = () => {
         }
 
         switch (true) {
+            case isDotPressed:
+                setIsDotPressed(false);
+                break;
             case isDivPressed:
                 newTotal = total !== 0 ? total / currentNum : prevNum / currentNum;
                 setIsDivPressed(false);
@@ -188,7 +193,7 @@ const HomePage = () => {
                 <span className="calculator__button calculator__button--operator" onClick={() => handleOperatorPress('+')}>+</span>
 
                 <span className="calculator__button calculator__button--number calculator__button--zero" onClick={() => handleNumberPress(0)}>0</span>
-                <span className="calculator__button calculator__button--number calculator__button--dot" onClick={handleDotPress} >.</span>
+                <span className="calculator__button calculator__button--number calculator__button--dot" onClick={() => handleOperatorPress('.')} >.</span>
                 <span className="calculator__button calculator__button--operator calculator__button--equals" onClick={handleEqualsPress}>=</span>
 
             </div>
