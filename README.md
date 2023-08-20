@@ -13,3 +13,7 @@ This project has been deployed at [https://philip-calculator.netlify.app/](https
 ## Screenshot
 
 ![calculator](https://github.com/stuckinsnow/calculator/assets/126236947/7043c827-f678-4a32-848f-e0da753cfe28)
+
+## Bugs
+
+There are some bugs with the '.' feature.
