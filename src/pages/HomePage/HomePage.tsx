@@ -8,12 +8,11 @@ const HomePage = () => {
     const [currentNum, setCurrentNum]: any = useState(0);
     const [prevNum, setPrevNum] = useState(0);
     const [isNumPressed, setIsNumPressed] = useState<boolean>(false);
-    const [isDotPressed, setIsDotPressed] = useState<boolean>(false);
+    // const [isDotPressed, setIsDotPressed] = useState<boolean>(false);
     const [isDivPressed, setIsDivPressed] = useState<boolean>(false);
     const [isMulPressed, setIsMulPressed] = useState<boolean>(false);
     const [isAddPressed, setIsAddPressed] = useState<boolean>(false);
     const [isSubPressed, setIsSubPressed] = useState<boolean>(false);
-    const [isEqualsPressed, setIsEqualsPressed] = useState<boolean>(false);
     const [readyToConcat, setReadyToConcat] = useState<boolean>(false);
 
     const [total, setTotal] = useState(0);
@@ -91,7 +90,7 @@ const HomePage = () => {
             setIsSubPressed(false);
         }
 
-        if (total != 0) {
+        if (total !== 0) {
             setPrevNum(total);
         }
 
@@ -190,7 +189,6 @@ const HomePage = () => {
     useEffect(() => {
         console.log('isNumPressed', isNumPressed);
         console.log('is add', isAddPressed);
-        console.log('is equals', isEqualsPressed);
         console.log('state current num', currentNum);
         console.log('state prev num', prevNum);
         console.log('state total', total);
