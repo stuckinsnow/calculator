@@ -5,7 +5,7 @@ const HomePage = () => {
 
 
     const [display, setDisplay]: any = useState(0);
-    const [currentNum, setCurrentNum] = useState(0);
+    const [currentNum, setCurrentNum]: any = useState(0);
     const [prevNum, setPrevNum] = useState(0);
     const [isNumPressed, setIsNumPressed] = useState<boolean>(false);
     const [isDivPressed, setIsDivPressed] = useState<boolean>(false);
@@ -202,6 +202,7 @@ const HomePage = () => {
         setIsAddPressed(false);
         setIsSubPressed(false);
         setIsMulPressed(false);
+        setCurrentNum(null);
 
     };
 
@@ -213,9 +214,15 @@ const HomePage = () => {
     }, [isNumPressed, currentNum, prevNum, total]);
 
     useEffect(() => {
-        setDisplay(total);
-        setDisplay(currentNum);
-    }, [currentNum])
+
+        if (currentNum != null) {
+            setDisplay(currentNum);
+        }
+
+        else {
+            setDisplay(total);
+        }
+    }, [currentNum, total])
 
     return (
         <div className="calculator">
