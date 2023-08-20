@@ -4,44 +4,96 @@ import './HomePage.scss';
 const HomePage = () => {
 
 
-    const [isCurrentNumber, setIsCurrentNumber] = useState(0);
-    const [isPrevNum, setIsPrevNum] = useState(0);
+    const [currentNum, setCurrentNum] = useState(0);
+    const [prevNum, setPrevNum] = useState(0);
+    const [isMulPressed, setIsMulPressed] = useState<boolean>(false);
     const [isAddPressed, setIsAddPressed] = useState<boolean>(false);
+    const [isSubPressed, setIsSubPressed] = useState<boolean>(false);
 
-    const [isTotal, setIsTotal] = useState(0);
+    const [total, setTotal] = useState(0);
 
-    const handleNumberPress: any = (v: any) => {
+    const handleNumberPress: any = (v: number) => {
 
-        if (isAddPressed == true) {
-            setIsPrevNum(isPrevNum + v);
-            setIsCurrentNumber(v);
-
-            console.log('add was pressed');
-
-            setIsAddPressed(false);
+        if (isMulPressed === false && isAddPressed === false && isSubPressed === false && currentNum === 0) {
+            setCurrentNum(v);
         }
 
-        else (setIsCurrentNumber(v));
+        if (isAddPressed === true) {
+            setPrevNum(prevNum => prevNum + currentNum);
+            setCurrentNum(v);
+        }
+
+        if (isMulPressed === true) {
+            setPrevNum(currentNum);
+            setCurrentNum(v);
+        }
+
+    }
+
+    const handleMulPress: any = () => {
+
+        setIsMulPressed(true);
+
+        if (total > 0) {
+            setPrevNum(total);
+        }
     }
 
     const handleAddPress: any = () => {
 
+        if (isSubPressed === true) {
+            setIsSubPressed(false);
+        }
+
         setIsAddPressed(true);
     }
 
+    const handleSubPress: any = () => {
+
+        setIsSubPressed(true);
+
+    }
+
+
     const handleEqualsPress: any = () => {
 
-        setIsTotal(isPrevNum + isCurrentNumber);
+        if (isAddPressed === true) {
+            setTotal(prevNum + currentNum);
+            console.log(total);
+        }
 
-        console.log('is add', isAddPressed);
+        if (isAddPressed === true && total > 0) {
+            setTotal(total + currentNum);
+            console.log('new total');
+            setPrevNum(total);
+        }
+
+        if (isMulPressed === true) {
+            setTotal(prevNum * currentNum);
+            console.log(total);
+            setPrevNum(total);
+        }
+
+        if (isMulPressed === true && total > 0) {
+            setTotal(total * currentNum);
+            console.log('new total');
+            setPrevNum(total);
+        }
+
+
+        setIsAddPressed(false);
+        setIsSubPressed(false);
+        setIsMulPressed(false);
 
     };
 
     useEffect(() => {
-        console.log('state', isTotal);
-    }, [isTotal]);
+        console.log('state current num', currentNum);
+        console.log('state prev num', prevNum);
+        console.log('state total', total);
+    }, [currentNum, prevNum, total]);
 
-    let totalDisplay: any = isTotal;
+    let totalDisplay: number = total;
 
 
     return (
@@ -59,12 +111,12 @@ const HomePage = () => {
                 <span className="calculator__button calculator__number" onClick={() => handleNumberPress(7)}>7</span>
                 <span className="calculator__button calculator__number" onClick={() => handleNumberPress(8)}>8</span>
                 <span className="calculator__button calculator__number" onClick={() => handleNumberPress(9)}>9</span>
-                <span className="calculator__button calculator__operator">*</span>
+                <span className="calculator__button calculator__operator" onClick={handleMulPress} >*</span>
 
                 <span className="calculator__button calculator__number" onClick={() => handleNumberPress(4)}>4</span>
                 <span className="calculator__button calculator__number" onClick={() => handleNumberPress(5)}>5</span>
                 <span className="calculator__button calculator__number" onClick={() => handleNumberPress(6)}>6</span>
-                <span className="calculator__button calculator__operator">-</span>
+                <span className="calculator__button calculator__operator" onClick={handleSubPress} >-</span>
 
                 <span className="calculator__button calculator__number" onClick={() => handleNumberPress(1)}>1</span>
                 <span className="calculator__button calculator__number" onClick={() => handleNumberPress(2)}>2</span>
@@ -73,7 +125,7 @@ const HomePage = () => {
 
                 <span className="calculator__button calculator__number calculator__button--zero" onClick={() => handleNumberPress(0)}>0</span>
                 <span className="calculator__button calculator__number calculator__button--dot">.</span>
-                <span className="calculator__button calculator__operator calculator__button--equals" onClick={() => handleEqualsPress(isTotal)} >=</span>
+                <span className="calculator__button calculator__operator calculator__button--equals" onClick={handleEqualsPress}>=</span>
 
             </div>
         </div >
