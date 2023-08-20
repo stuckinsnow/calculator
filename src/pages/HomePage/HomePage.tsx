@@ -8,10 +8,13 @@ const HomePage = () => {
     const [currentNum, setCurrentNum]: any = useState(0);
     const [prevNum, setPrevNum] = useState(0);
     const [isNumPressed, setIsNumPressed] = useState<boolean>(false);
+    const [isDotPressed, setIsDotPressed] = useState<boolean>(false);
     const [isDivPressed, setIsDivPressed] = useState<boolean>(false);
     const [isMulPressed, setIsMulPressed] = useState<boolean>(false);
     const [isAddPressed, setIsAddPressed] = useState<boolean>(false);
     const [isSubPressed, setIsSubPressed] = useState<boolean>(false);
+    const [isEqualsPressed, setIsEqualsPressed] = useState<boolean>(false);
+    const [readyToConcat, setReadyToConcat] = useState<boolean>(false);
 
     const [total, setTotal] = useState(0);
 
@@ -28,44 +31,27 @@ const HomePage = () => {
 
     const handleNumberPress: any = (v: number) => {
 
-        if (isNumPressed === true) {
+        if (readyToConcat) {
+            console.log('ready to concat');
             const concatenatedValue = String(currentNum) + String(v);
             const numberedValue = parseFloat(concatenatedValue);
             setCurrentNum(numberedValue);
-            console.log('concatinating', numberedValue);
+            return;
         }
 
-
-        if (isMulPressed === false && isAddPressed === false && isSubPressed === false && currentNum === 0) {
-            setCurrentNum(v);
-            setIsNumPressed(true);
-        }
-
-        if (isDivPressed === true) {
-            setIsNumPressed(true);
+        if (isDivPressed || isMulPressed || isAddPressed || isSubPressed) {
             setPrevNum(currentNum);
             setCurrentNum(v);
-        }
-
-        if (isMulPressed === true) {
-            setIsNumPressed(true);
-            setPrevNum(currentNum);
+            setReadyToConcat(true);
+        } else if (isNumPressed) {
+            const concatenatedValue = String(currentNum) + String(v);
+            const numberedValue = parseFloat(concatenatedValue);
+            setCurrentNum(numberedValue);
+        } else {
             setCurrentNum(v);
-        }
-
-        if (isAddPressed === true) {
             setIsNumPressed(true);
-            setPrevNum(prevNum => prevNum + currentNum);
-            setCurrentNum(v);
         }
-
-        if (isSubPressed === true) {
-            setIsNumPressed(true);
-            setPrevNum(currentNum);
-            setCurrentNum(v);
-        }
-
-    }
+    };
 
     const handleDivPress: any = () => {
 
@@ -156,12 +142,14 @@ const HomePage = () => {
     const handleEqualsPress: any = () => {
 
         setIsNumPressed(false);
+        setReadyToConcat(false);
 
         if (isDivPressed === true) {
             const newTotal = total !== 0 ? total / currentNum : prevNum / currentNum;
             setTotal(newTotal);
             console.log('new total:', newTotal);
             setPrevNum(parseFloat(newTotal.toFixed(8)));
+            setIsDivPressed(false);
         }
 
         if (isMulPressed === true) {
@@ -169,6 +157,7 @@ const HomePage = () => {
             setTotal(newTotal);
             console.log('new total:', newTotal);
             setPrevNum(newTotal);
+            setIsMulPressed(false);
         }
 
         if (isAddPressed === true) {
@@ -176,6 +165,7 @@ const HomePage = () => {
             setTotal(newTotal);
             console.log(newTotal);
             setPrevNum(newTotal);
+            setIsAddPressed(false);
         }
 
         if (isSubPressed === true) {
@@ -183,21 +173,28 @@ const HomePage = () => {
             setTotal(newTotal);
             console.log(newTotal);
             setPrevNum(newTotal);
+            setIsSubPressed(false);
         }
 
+
+        setCurrentNum(null);
+
+        setIsDivPressed(false);
+        setIsMulPressed(false);
         setIsAddPressed(false);
         setIsSubPressed(false);
-        setIsMulPressed(false);
-        setCurrentNum(null);
+        setDisplay(total);
 
     };
 
     useEffect(() => {
         console.log('isNumPressed', isNumPressed);
+        console.log('is add', isAddPressed);
+        console.log('is equals', isEqualsPressed);
         console.log('state current num', currentNum);
         console.log('state prev num', prevNum);
         console.log('state total', total);
-    }, [isNumPressed, currentNum, prevNum, total]);
+    }, [isNumPressed, isAddPressed, currentNum, prevNum, total]);
 
     useEffect(() => {
 
