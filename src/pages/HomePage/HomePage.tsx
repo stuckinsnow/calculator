@@ -12,6 +12,8 @@ const HomePage = () => {
     const [isAddPressed, setIsAddPressed] = useState<boolean>(false);
     const [isSubPressed, setIsSubPressed] = useState<boolean>(false);
     const [readyToConcat, setReadyToConcat] = useState<boolean>(false);
+
+    const [myMem, setMyMem] = useState(0);
     const [total, setTotal] = useState(0);
 
     const handleAcPress = () => {
@@ -26,7 +28,11 @@ const HomePage = () => {
     }
 
     const handleMemPress = () => {
-        console.log(total);
+        setMyMem(total);
+    }
+
+    const handleRecPress = () => {
+        setDisplay(myMem);
     }
 
     const handleDotPress = () => {
@@ -165,7 +171,7 @@ const HomePage = () => {
                 <span className="calculator__button calculator__button--operator" onClick={handleMemPress} >
                     {/* +/- */}
                     M</span>
-                <span className="calculator__button calculator__button--operator">%</span>
+                <span className="calculator__button calculator__button--operator" onClick={handleRecPress} >Mr</span>
                 <span className="calculator__button calculator__button--operator" onClick={() => handleOperatorPress('/')} >/</span>
 
                 <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(7)}>7</span>
