@@ -28,7 +28,7 @@ const HomePage = () => {
     }
 
     const handleMemPress = () => {
-        setMyMem(total);
+        setMyMem(display);
     }
 
     const handleRecPress = () => {
@@ -168,10 +168,8 @@ const HomePage = () => {
             <div className="calculator__buttons">
 
                 <span className="calculator__button calculator__button--reset" onClick={handleAcPress} >AC</span>
-                <span className="calculator__button calculator__button--operator" onClick={handleMemPress} >
-                    {/* +/- */}
-                    M</span>
                 <span className="calculator__button calculator__button--operator" onClick={handleRecPress} >Mr</span>
+                <span className="calculator__button calculator__button--operator" onClick={handleMemPress} >M</span>
                 <span className="calculator__button calculator__button--operator" onClick={() => handleOperatorPress('/')} >/</span>
 
                 <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(7)}>7</span>
