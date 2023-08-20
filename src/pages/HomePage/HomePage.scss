@@ -1,4 +1,5 @@
 @use '../../styles/colours.scss' as *;
+@use '../../styles/mixins.scss' as *;
 
 body {
     min-height: 100dvh;
@@ -6,12 +7,19 @@ body {
     justify-content: center;
 
     .calculator {
-        min-height: 100dvh;
-        width: 30rem;
+        width: 100%;
+        padding: 0;
+        box-sizing: border-box;
         display: flex;
         align-items: flex-start;
         align-content: center;
         flex-wrap: wrap;
+
+        @include tablet {
+
+            min-height: 100dvh;
+            width: 30rem;
+        }
 
         &__display {
             width: 100%;
