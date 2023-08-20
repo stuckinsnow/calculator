@@ -2,9 +2,9 @@
 
 ## Project Details
 
-I'm a strong believer in repetition for learning, and I wanted to create a small project without being bogged down too much by html/css. I also didn't want to use tutorials or ChatGPT. There's quite a few calculators online I'm sure; I chose useState because it’s very useful in other projects, and I may expand on this project later. It would be kind of fun to record memory states to a database. 
+I wanted to create a small project without being bogged down too much by html/css, so I chose this calculator! I didn't want to use tutorials or ChatGPT, and it has been an ideal project for me. There's quite a few calculators online I'm sure; I chose useState because it’s very useful in other projects, and I may expand on this later. It would be fun to record memory states to a database. 
 
-I believe that from a functional point of view, useState isn't a requirement and it creates unnecessary work due to its asynchronous nature. That said, it was an intentional choice, and I’m really pleased with the result due to not needing ChatGPT 99.99% of the time (I was facing a TypeScript concatination issue, due to converting the number to a string).
+I believe that from a functional point of view, useState isn't a requirement at all and it creates unnecessary work due to its asynchronous nature. It was an intentional choice, and I’m really pleased with the result due to not facing many typos or needing assistance from chatGPT, etc!
 
 ## Live URL
 
