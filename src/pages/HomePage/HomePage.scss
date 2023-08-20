@@ -68,6 +68,13 @@ body {
                 flex-grow: 2;
             }
 
+            &--operator {
+
+                border: thin solid $color-a;
+                background: $color-l;
+                color: $color-a;
+            }
+
             &:hover {
                 background-color: $color-c;
                 box-shadow: 0 thin 0.2rem 0 rgba(0, 0, 0, 0.2);
@@ -78,11 +85,6 @@ body {
             }
         }
 
-        &__operator {
 
-            border: thin solid $color-a;
-            background: $color-l;
-            color: $color-a;
-        }
     }
 }

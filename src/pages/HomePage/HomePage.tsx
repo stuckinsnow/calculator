@@ -2,19 +2,16 @@ import { useEffect, useState } from 'react';
 import './HomePage.scss';
 
 const HomePage = () => {
-
-
     const [display, setDisplay]: any = useState(0);
     const [currentNum, setCurrentNum]: any = useState(0);
     const [prevNum, setPrevNum] = useState(0);
+    const [isDotPressed, setIsDotPressed] = useState<boolean>(false);
     const [isNumPressed, setIsNumPressed] = useState<boolean>(false);
-    // const [isDotPressed, setIsDotPressed] = useState<boolean>(false);
     const [isDivPressed, setIsDivPressed] = useState<boolean>(false);
     const [isMulPressed, setIsMulPressed] = useState<boolean>(false);
     const [isAddPressed, setIsAddPressed] = useState<boolean>(false);
     const [isSubPressed, setIsSubPressed] = useState<boolean>(false);
     const [readyToConcat, setReadyToConcat] = useState<boolean>(false);
-
     const [total, setTotal] = useState(0);
 
     const handleAcPress = () => {
@@ -28,10 +25,69 @@ const HomePage = () => {
         setIsSubPressed(false);
     }
 
+    const handleMemPress = () => {
+        console.log(total);
+    }
+
+    const handleDotPress = () => {
+        if (!isDotPressed) {
+            setIsDotPressed(true);
+            setReadyToConcat(true);
+            setCurrentNum(currentNum + '.');
+        }
+    };
+
+    const handleOperatorPress = (operator: string) => {
+        setIsNumPressed(false);
+        setReadyToConcat(false);
+        setIsDotPressed(false);
+
+        if (isDotPressed) {
+            setIsDotPressed(false);
+            setCurrentNum(Number(currentNum));
+        }
+
+        setIsDivPressed(false);
+        setIsMulPressed(false);
+        setIsAddPressed(false);
+        setIsSubPressed(false);
+
+        switch (operator) {
+            case '/':
+                setIsDivPressed(true);
+                setDisplay('/');
+                break;
+            case '*':
+                setIsMulPressed(true);
+                setDisplay('*');
+                if (total !== 0) {
+                    setPrevNum(total);
+                }
+                break;
+            case '+':
+                setIsAddPressed(true);
+                setDisplay('+');
+                break;
+            case '-':
+                setIsSubPressed(true);
+                setDisplay('-');
+                break;
+            default:
+                break;
+        }
+    };
+
     const handleNumberPress: any = (v: number) => {
+        if (currentNum === v) {
+            setDisplay(v);
+        }
+
+        if (isDotPressed) {
+            setCurrentNum(currentNum + v);
+            return;
+        }
 
         if (readyToConcat) {
-            console.log('ready to concat');
             const concatenatedValue = String(currentNum) + String(v);
             const numberedValue = parseFloat(concatenatedValue);
             setCurrentNum(numberedValue);
@@ -52,155 +108,48 @@ const HomePage = () => {
         }
     };
 
-    const handleDivPress: any = () => {
-
-        setIsDivPressed(true);
-        setIsNumPressed(false);
-
-        if (isMulPressed === true) {
-            setIsMulPressed(false);
-        }
-
-        if (isAddPressed === true) {
-            setIsAddPressed(false);
-        }
-
-        if (isSubPressed === true) {
-            setIsSubPressed(false);
-        }
-
-        setDisplay('/');
-
-    }
-
-    const handleMulPress: any = () => {
-
-        setIsMulPressed(true);
-        setIsNumPressed(false);
-
-        if (isDivPressed === true) {
-            setIsDivPressed(false);
-        }
-
-        if (isAddPressed === true) {
-            setIsAddPressed(false);
-        }
-
-        if (isSubPressed === true) {
-            setIsSubPressed(false);
-        }
-
-        if (total !== 0) {
-            setPrevNum(total);
-        }
-
-        setDisplay('*');
-    }
-
-    const handleAddPress: any = () => {
-
-        setIsAddPressed(true);
-        setIsNumPressed(false);
-
-        if (isDivPressed === true) {
-            setIsDivPressed(false);
-        }
-
-        if (isMulPressed === true) {
-            setIsMulPressed(false);
-        }
-
-        if (isSubPressed === true) {
-            setIsSubPressed(false);
-        }
-
-        setDisplay('+');
-    }
-
-    const handleSubPress: any = () => {
-
-        setIsSubPressed(true);
-        setIsNumPressed(false);
-
-        if (isDivPressed === true) {
-            setIsDivPressed(false);
-        }
-
-        if (isMulPressed === true) {
-            setIsMulPressed(false);
-        }
-        if (isAddPressed === true) {
-            setIsAddPressed(false);
-        }
-
-        setDisplay('-');
-
-    }
-
-
     const handleEqualsPress: any = () => {
-
         setIsNumPressed(false);
         setReadyToConcat(false);
+        setIsDotPressed(false);
+        let newTotal = 0;
 
-        if (isDivPressed === true) {
-            const newTotal = total !== 0 ? total / currentNum : prevNum / currentNum;
-            setTotal(newTotal);
-            console.log('new total:', newTotal);
-            setPrevNum(parseFloat(newTotal.toFixed(8)));
-            setIsDivPressed(false);
+        if (isDotPressed) {
+            setCurrentNum(Number(currentNum));
         }
 
-        if (isMulPressed === true) {
-            const newTotal = total !== 0 ? total * currentNum : prevNum * currentNum;
-            setTotal(newTotal);
-            console.log('new total:', newTotal);
-            setPrevNum(newTotal);
-            setIsMulPressed(false);
+        switch (true) {
+            case isDivPressed:
+                newTotal = total !== 0 ? total / currentNum : prevNum / currentNum;
+                setIsDivPressed(false);
+                break;
+            case isMulPressed:
+                newTotal = total !== 0 ? total * currentNum : prevNum * currentNum;
+                setIsMulPressed(false);
+                break;
+            case isAddPressed:
+                newTotal = total !== 0 ? total + currentNum : prevNum + currentNum;
+                setIsAddPressed(false);
+                break;
+            case isSubPressed:
+                newTotal = total !== 0 ? total - currentNum : prevNum - currentNum;
+                setIsSubPressed(false);
+                break;
+            default:
+                newTotal = total;
+                break;
         }
 
-        if (isAddPressed === true) {
-            const newTotal = total !== 0 ? total + currentNum : prevNum + currentNum;
-            setTotal(newTotal);
-            console.log(newTotal);
-            setPrevNum(newTotal);
-            setIsAddPressed(false);
-        }
-
-        if (isSubPressed === true) {
-            const newTotal = total !== 0 ? total - currentNum : prevNum - currentNum;
-            setTotal(newTotal);
-            console.log(newTotal);
-            setPrevNum(newTotal);
-            setIsSubPressed(false);
-        }
-
-
+        setTotal(newTotal);
+        setPrevNum(newTotal);
         setCurrentNum(null);
-
-        setIsDivPressed(false);
-        setIsMulPressed(false);
-        setIsAddPressed(false);
-        setIsSubPressed(false);
-        setDisplay(total);
-
+        setDisplay(newTotal);
     };
 
     useEffect(() => {
-        console.log('isNumPressed', isNumPressed);
-        console.log('is add', isAddPressed);
-        console.log('state current num', currentNum);
-        console.log('state prev num', prevNum);
-        console.log('state total', total);
-    }, [isNumPressed, isAddPressed, currentNum, prevNum, total]);
-
-    useEffect(() => {
-
         if (currentNum != null) {
             setDisplay(currentNum);
-        }
-
-        else {
+        } else {
             setDisplay(total);
         }
     }, [currentNum, total])
@@ -212,29 +161,31 @@ const HomePage = () => {
 
             <div className="calculator__buttons">
 
-                <span className="calculator__button calculator__reset" onClick={handleAcPress} >AC</span>
-                <span className="calculator__button calculator__operator">+/-</span>
-                <span className="calculator__button calculator__operator">%</span>
-                <span className="calculator__button calculator__operator" onClick={handleDivPress} >/</span>
+                <span className="calculator__button calculator__button--reset" onClick={handleAcPress} >AC</span>
+                <span className="calculator__button calculator__button--operator" onClick={handleMemPress} >
+                    {/* +/- */}
+                    M</span>
+                <span className="calculator__button calculator__button--operator">%</span>
+                <span className="calculator__button calculator__button--operator" onClick={() => handleOperatorPress('/')} >/</span>
 
-                <span className="calculator__button calculator__number" onClick={() => handleNumberPress(7)}>7</span>
-                <span className="calculator__button calculator__number" onClick={() => handleNumberPress(8)}>8</span>
-                <span className="calculator__button calculator__number" onClick={() => handleNumberPress(9)}>9</span>
-                <span className="calculator__button calculator__operator" onClick={handleMulPress} >*</span>
+                <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(7)}>7</span>
+                <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(8)}>8</span>
+                <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(9)}>9</span>
+                <span className="calculator__button calculator__button--operator" onClick={() => handleOperatorPress('*')} >*</span>
 
-                <span className="calculator__button calculator__number" onClick={() => handleNumberPress(4)}>4</span>
-                <span className="calculator__button calculator__number" onClick={() => handleNumberPress(5)}>5</span>
-                <span className="calculator__button calculator__number" onClick={() => handleNumberPress(6)}>6</span>
-                <span className="calculator__button calculator__operator" onClick={handleSubPress} >-</span>
+                <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(4)}>4</span>
+                <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(5)}>5</span>
+                <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(6)}>6</span>
+                <span className="calculator__button calculator__button--operator" onClick={() => handleOperatorPress('-')} >-</span>
 
-                <span className="calculator__button calculator__number" onClick={() => handleNumberPress(1)}>1</span>
-                <span className="calculator__button calculator__number" onClick={() => handleNumberPress(2)}>2</span>
-                <span className="calculator__button calculator__number" onClick={() => handleNumberPress(3)}>3</span>
-                <span className="calculator__button calculator__operator" onClick={handleAddPress}>+</span>
+                <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(1)}>1</span>
+                <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(2)}>2</span>
+                <span className="calculator__button calculator__button--number" onClick={() => handleNumberPress(3)}>3</span>
+                <span className="calculator__button calculator__button--operator" onClick={() => handleOperatorPress('+')}>+</span>
 
-                <span className="calculator__button calculator__number calculator__button--zero" onClick={() => handleNumberPress(0)}>0</span>
-                <span className="calculator__button calculator__number calculator__button--dot">.</span>
-                <span className="calculator__button calculator__operator calculator__button--equals" onClick={handleEqualsPress}>=</span>
+                <span className="calculator__button calculator__button--number calculator__button--zero" onClick={() => handleNumberPress(0)}>0</span>
+                <span className="calculator__button calculator__button--number calculator__button--dot" onClick={handleDotPress} >.</span>
+                <span className="calculator__button calculator__button--operator calculator__button--equals" onClick={handleEqualsPress}>=</span>
 
             </div>
         </div >
