@@ -13,6 +13,16 @@ const HomePage = () => {
 
     const [total, setTotal] = useState(0);
 
+    const handleAcPress = () => {
+        setDisplay(0);
+        setTotal(0);
+        setPrevNum(0);
+        setCurrentNum(0);
+        setIsMulPressed(false);
+        setIsAddPressed(false);
+        setIsSubPressed(false);
+    }
+
     const handleNumberPress: any = (v: number) => {
 
         if (isMulPressed === false && isAddPressed === false && isSubPressed === false && currentNum === 0) {
@@ -149,7 +159,7 @@ const HomePage = () => {
 
             <div className="calculator__buttons">
 
-                <span className="calculator__button calculator__reset">AC</span>
+                <span className="calculator__button calculator__reset" onClick={handleAcPress} >AC</span>
                 <span className="calculator__button calculator__operator">+/-</span>
                 <span className="calculator__button calculator__operator">%</span>
                 <span className="calculator__button calculator__operator">/</span>
