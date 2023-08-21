@@ -35,6 +35,14 @@ const HomePage = () => {
         setDisplay(myMem);
     }
 
+    const handleDotPress = () => {
+        if (!isDotPressed) {
+            setIsDotPressed(true);
+            setReadyToConcat(true);
+            setCurrentNum(currentNum + '.');
+        }
+    };
+
     const handleOperatorPress = (operator: string) => {
         setIsNumPressed(false);
         setReadyToConcat(false);
@@ -49,7 +57,6 @@ const HomePage = () => {
         setIsMulPressed(false);
         setIsAddPressed(false);
         setIsSubPressed(false);
-        setIsDotPressed(false);
 
         switch (operator) {
             case '/':
@@ -70,15 +77,6 @@ const HomePage = () => {
             case '-':
                 setIsSubPressed(true);
                 setDisplay('-');
-                break;
-            case '.':
-                setIsDotPressed(true);
-
-                if (isDotPressed === false) {
-                    setIsDotPressed(true);
-                    setReadyToConcat(true);
-                    setCurrentNum(currentNum + '.');
-                }
                 break;
             default:
                 break;
@@ -122,28 +120,28 @@ const HomePage = () => {
         setIsDotPressed(false);
         let newTotal = 0;
 
-        if (isDotPressed) {
-            setCurrentNum(Number(currentNum));
+        const currentNumber = typeof currentNum === 'string' ? parseFloat(currentNum) : currentNum;
+
+        if (isNaN(currentNumber)) {
+            setDisplay("Error");
+            return;
         }
 
         switch (true) {
-            case isDotPressed:
-                setIsDotPressed(false);
-                break;
             case isDivPressed:
-                newTotal = total !== 0 ? total / currentNum : prevNum / currentNum;
+                newTotal = total !== 0 ? total / currentNumber : prevNum / currentNumber;
                 setIsDivPressed(false);
                 break;
             case isMulPressed:
-                newTotal = total !== 0 ? total * currentNum : prevNum * currentNum;
+                newTotal = total !== 0 ? total * currentNumber : prevNum * currentNumber;
                 setIsMulPressed(false);
                 break;
             case isAddPressed:
-                newTotal = total !== 0 ? total + currentNum : prevNum + currentNum;
+                newTotal = total !== 0 ? total + currentNumber : prevNum + currentNumber;
                 setIsAddPressed(false);
                 break;
             case isSubPressed:
-                newTotal = total !== 0 ? total - currentNum : prevNum - currentNum;
+                newTotal = total !== 0 ? total - currentNumber : prevNum - currentNumber;
                 setIsSubPressed(false);
                 break;
             default:
@@ -158,12 +156,19 @@ const HomePage = () => {
     };
 
     useEffect(() => {
+
+        console.log(total);
+        console.log(isNumPressed);
+        console.log(handleOperatorPress);
+        console.log(currentNum);
+
         if (currentNum != null) {
             setDisplay(currentNum);
         } else {
             setDisplay(total);
         }
-    }, [currentNum, total])
+    }, [isNumPressed, handleOperatorPress, currentNum, total])
+
 
     return (
         <div className="calculator">
@@ -193,7 +198,7 @@ const HomePage = () => {
                 <span className="calculator__button calculator__button--operator" onClick={() => handleOperatorPress('+')}>+</span>
 
                 <span className="calculator__button calculator__button--number calculator__button--zero" onClick={() => handleNumberPress(0)}>0</span>
-                <span className="calculator__button calculator__button--number calculator__button--dot" onClick={() => handleOperatorPress('.')} >.</span>
+                <span className="calculator__button calculator__button--number calculator__button--dot" onClick={handleDotPress} >.</span>
                 <span className="calculator__button calculator__button--operator calculator__button--equals" onClick={handleEqualsPress}>=</span>
 
             </div>
