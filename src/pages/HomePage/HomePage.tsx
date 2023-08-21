@@ -18,6 +18,8 @@ const HomePage = () => {
     const [isSubPressed, setIsSubPressed] = useState<boolean>(false);
     const [readyToConcat, setReadyToConcat] = useState<boolean>(false);
 
+    // useState is unnecessary to build a calculator, and it creates more challenges as it's asynchronous, but I'm weird and this was fun
+
     const [recall, setRecall]: any = useState(null);
     const [saved, setSaved]: any = useState(null);
 
