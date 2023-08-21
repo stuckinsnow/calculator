@@ -157,17 +157,12 @@ const HomePage = () => {
 
     useEffect(() => {
 
-        console.log(total);
-        console.log(isNumPressed);
-        console.log(handleOperatorPress);
-        console.log(currentNum);
-
         if (currentNum != null) {
             setDisplay(currentNum);
         } else {
             setDisplay(total);
         }
-    }, [isNumPressed, handleOperatorPress, currentNum, total])
+    }, [currentNum, total])
 
 
     return (
