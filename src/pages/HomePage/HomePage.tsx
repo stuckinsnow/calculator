@@ -1,4 +1,9 @@
 import { useEffect, useState } from 'react';
+
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+
+
 import './HomePage.scss';
 
 const HomePage = () => {
@@ -12,6 +17,9 @@ const HomePage = () => {
     const [isAddPressed, setIsAddPressed] = useState<boolean>(false);
     const [isSubPressed, setIsSubPressed] = useState<boolean>(false);
     const [readyToConcat, setReadyToConcat] = useState<boolean>(false);
+
+    const [recall, setRecall]: any = useState(null);
+    const [saved, setSaved]: any = useState(null);
 
     const [myMem, setMyMem] = useState(0);
     const [total, setTotal] = useState(0);
@@ -29,11 +37,17 @@ const HomePage = () => {
 
     const handleMemPress = () => {
         setMyMem(display);
+        setSaved(myMem);
     }
 
     const handleRecPress = () => {
-        setDisplay(myMem);
+        setRecall(myMem);
     }
+
+    const handleSnackbarClose = () => {
+        setRecall(null);
+        setSaved(null);
+    };
 
     const handleDotPress = () => {
         if (!isDotPressed) {
@@ -167,6 +181,21 @@ const HomePage = () => {
 
     return (
         <div className="calculator">
+
+
+
+            <Snackbar open={!!recall} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                <MuiAlert elevation={6} variant="filled" severity="success" onClose={handleSnackbarClose}>
+                    Your number: {recall}
+                </MuiAlert>
+            </Snackbar>
+
+            <Snackbar open={!!saved} autoHideDuration={6000} onClose={handleSnackbarClose}>
+                <MuiAlert elevation={6} variant="filled" severity="info" onClose={handleSnackbarClose}>
+                    Number saved: {saved}
+                </MuiAlert>
+            </Snackbar>
+
 
             <div className="calculator__display">{display}</div>
 
