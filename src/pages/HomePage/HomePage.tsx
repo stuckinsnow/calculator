@@ -7,9 +7,9 @@ import MuiAlert from '@mui/material/Alert';
 import './HomePage.scss';
 
 const HomePage = () => {
-    const [display, setDisplay] = useState<number | string | null>(null);
+    const [display, setDisplay]: any = useState(0);
     const [currentNum, setCurrentNum]: any = useState(0);
-    const [prevNum, setPrevNum] = useState<number>(0);
+    const [prevNum, setPrevNum] = useState(0);
     const [isDotPressed, setIsDotPressed] = useState<boolean>(false);
     const [isNumPressed, setIsNumPressed] = useState<boolean>(false);
     const [isDivPressed, setIsDivPressed] = useState<boolean>(false);
@@ -18,15 +18,13 @@ const HomePage = () => {
     const [isSubPressed, setIsSubPressed] = useState<boolean>(false);
     const [readyToConcat, setReadyToConcat] = useState<boolean>(false);
 
+    // useState is unnecessary to build a calculator, and it creates more challenges as it's asynchronous, but I'm weird and this was fun
 
-    // useState is unnecessary to build a calculator, and it creates more challenges as it's asynchronous, but I'm weird and this was fun 
+    const [recall, setRecall]: any = useState(null);
+    const [saved, setSaved]: any = useState(null);
 
-    const [recall, setRecall] = useState<number | null>(null);
-    const [saved, setSaved] = useState<number | null>(null);
-
-    const [myMem, setMyMem] = useState<number>(0);
-    const [total, setTotal] = useState<number>(0);
-
+    const [myMem, setMyMem] = useState(0);
+    const [total, setTotal] = useState(0);
 
     const handleAcPress = () => {
         setDisplay(0);
@@ -40,11 +38,9 @@ const HomePage = () => {
     }
 
     const handleMemPress = () => {
-        if (typeof display === 'number' && typeof myMem === 'number') {
-            setMyMem(display + myMem);
-            setSaved(myMem + myMem);
-        }
-    };
+        setMyMem(display);
+        setSaved(myMem);
+    }
 
     const handleRecPress = () => {
         setRecall(myMem);
@@ -59,7 +55,7 @@ const HomePage = () => {
         if (!isDotPressed) {
             setIsDotPressed(true);
             setReadyToConcat(true);
-            setCurrentNum(currentNum === null ? '0.' : currentNum + '.');
+            setCurrentNum(currentNum + '.');
         }
     };
 
@@ -103,11 +99,25 @@ const HomePage = () => {
         }
     };
 
-    const handleNumberPress = (v: number) => {
+    const handleNumberPress: any = (v: number) => {
+        if (currentNum === v) {
+            setDisplay(v);
+        }
+
+        if (isDotPressed) {
+            setCurrentNum(currentNum + v);
+            return;
+        }
+
+        if (readyToConcat) {
+            const concatenatedValue = String(currentNum) + String(v);
+            const numberedValue = parseFloat(concatenatedValue);
+            setCurrentNum(numberedValue);
+            return;
+        }
+
         if (isDivPressed || isMulPressed || isAddPressed || isSubPressed) {
-            // Convert currentNum to a number if it's not
-            const currentNumber = typeof currentNum === 'string' ? parseFloat(currentNum) : currentNum;
-            setPrevNum(currentNumber);
+            setPrevNum(currentNum);
             setCurrentNum(v);
             setReadyToConcat(true);
         } else if (isNumPressed) {
@@ -119,7 +129,6 @@ const HomePage = () => {
             setIsNumPressed(true);
         }
     };
-
 
     const handleEqualsPress: any = () => {
         setIsNumPressed(false);
