@@ -2,9 +2,7 @@
 
 ## Project Details
 
-The goal of this project was to create something small and not be bogged down too much by html/css! I didn't want to use tutorials or ChatGPT, and it has been an ideal project for me. There's quite a few calculators online I'm sure. It would be fun to record memory states to a database. 
-
-From a functional point of view, useState isn't a requirement at all and it creates unnecessary work due to its asynchronous nature. It was an intentional choice, and I’m really pleased with the result due to not facing many typos or needing assistance from chatGPT, etc!
+The goal of this project was to create something small and not be bogged down too much by html/css! I didn't want to use tutorials or ChatGPT.
 
 ## Live URL
 
