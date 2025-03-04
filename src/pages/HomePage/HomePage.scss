@@ -2,97 +2,97 @@
 @use '../../styles/mixins.scss' as *;
 
 body {
-    min-height: 100dvh;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+
+  .calculator {
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    align-items: flex-start;
+    align-content: center;
+    flex-wrap: wrap;
 
-    .calculator {
-        width: 100%;
-        padding: 0;
-        box-sizing: border-box;
-        display: flex;
-        align-items: flex-start;
-        align-content: center;
-        flex-wrap: wrap;
+    @include tablet {
 
-        @include tablet {
-
-            min-height: 100dvh;
-            width: 30rem;
-        }
-
-        &__display {
-            width: 100%;
-            height: 4rem;
-            font-size: 2rem;
-            display: flex;
-            justify-content: flex-end;
-            padding-right: 1rem;
-            align-items: center;
-            background-color: $color-l;
-            border: thin solid $color-a;
-        }
-
-        &__buttons,
-        &__result {
-            box-sizing: border-box;
-            display: flex;
-            flex-wrap: wrap;
-            flex: 0 1 100%;
-
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
-
-        &__result {
-            height: 3.125rem;
-            border: thin solid $color-b;
-            justify-content: flex-end;
-            align-items: center;
-            font-size: 1.5em;
-            background: #000;
-            color: $color-a;
-            padding: 0 0.625rem;
-        }
-
-        &__button {
-            box-sizing: border-box;
-            display: flex;
-            flex: 0 1 25%;
-            justify-content: center;
-            align-items: center;
-            height: 3.125rem;
-            border: thin solid $color-a;
-            border-top: none;
-            border-left: none;
-            cursor: pointer;
-            background-color: $color-b;
-            font-size: 2em;
-            transition: all 0.125s ease-in-out;
-
-            &--zero {
-                flex-grow: 2;
-            }
-
-            &--operator {
-
-                border: thin solid $color-a;
-                background: $color-l;
-                color: $color-a;
-            }
-
-            &:hover {
-                background-color: $color-c;
-                box-shadow: 0 thin 0.2rem 0 rgba(0, 0, 0, 0.2);
-            }
-
-            &:active {
-                color: $color-k;
-            }
-        }
-
-
+      min-height: 100dvh;
+      width: 30rem;
     }
+
+    &__display {
+      width: 100%;
+      height: 4rem;
+      font-size: 2rem;
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 1rem;
+      align-items: center;
+      background-color: $color-l;
+      border: thin solid $color-a;
+    }
+
+    &__buttons,
+    &__result {
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      flex: 0 1 100%;
+
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    &__result {
+      height: 3.125rem;
+      border: thin solid $color-b;
+      justify-content: flex-end;
+      align-items: center;
+      font-size: 1.5em;
+      background: #000;
+      color: $color-a;
+      padding: 0 0.625rem;
+    }
+
+    &__button {
+      box-sizing: border-box;
+      display: flex;
+      flex: 0 1 25%;
+      justify-content: center;
+      align-items: center;
+      height: 3.125rem;
+      border: thin solid $color-a;
+      border-top: none;
+      border-left: none;
+      cursor: pointer;
+      background-color: $color-b;
+      font-size: 2em;
+      transition: all 0.125s ease-in-out;
+
+      &--zero {
+        flex-grow: 2;
+      }
+
+      &--operator {
+
+        border: thin solid $color-a;
+        background: $color-l;
+        color: $color-a;
+      }
+
+      &:hover {
+        background-color: $color-c;
+        box-shadow: 0 thin 0.2rem 0 rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        color: $color-k;
+      }
+    }
+
+
+  }
 }
